@@ -3,7 +3,6 @@ import Checkers.Board_and_Controller.Board;
 import Checkers.Board_and_Controller.Piece;
 import Checkers.Controller;
 import Checkers.Move;
-import  Checkers.Controller;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -61,7 +60,7 @@ public  ControllerImpl(Board bord){
     Board.setBoard(PastBordStates.pop());
         return false;
     }
-    private boolean putBordInStack(){
+    private boolean putBoardInStack(){
         PastBordStates.push(Board.getBoardCopy());
         return true;
     }
