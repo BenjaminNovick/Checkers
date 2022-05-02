@@ -53,6 +53,33 @@ public  ControllerImpl(Board bord){
         return jumps;
     }
 
+    private boolean canUpRightJump(int[] location, Piece piece){
+        if(inBounds(upRight(location)) && Board.getPiece(upRight(location)).isRed() != piece.isRed() && inBounds(upRight(upRight(location))) && Board.getPiece(upRight(upRight(location))) == null){
+            return true;
+        }
+        return false;
+    }
+    private boolean canUpLeftJump(int[] location, Piece piece){
+        if(inBounds(upLeft(location)) && Board.getPiece(upLeft(location)).isRed() != piece.isRed() && inBounds(upLeft(upLeft(location))) && Board.getPiece(upLeft(upLeft(location))) == null){
+            return true;
+        }
+        return false;
+    }
+
+    private boolean canDownLeftJump(int[] location, Piece piece){
+        if(inBounds(downLeft(location)) && Board.getPiece(downLeft(location)).isRed() != piece.isRed() && inBounds(downLeft(downLeft(location))) && Board.getPiece(downLeft(downLeft(location))) == null){
+            return true;
+        }
+        return false;
+    }
+
+    private boolean canDownRightJump(int[] location, Piece piece){
+        if(inBounds(downRight(location)) && Board.getPiece(downRight(location)).isRed() != piece.isRed() && inBounds(downRight(downRight(location))) && Board.getPiece(downRight(downRight(location))) == null){
+            return true;
+        }
+        return false;
+    }
+
     private int[] upRight(int[] location){
        int[] array = new int[2];
        array[0] = location[0] + 1;
