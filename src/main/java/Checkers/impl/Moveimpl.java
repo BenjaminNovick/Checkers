@@ -1,16 +1,28 @@
 package Checkers.impl;
 import Checkers.Board_and_Controller.Piece;
 import Checkers.Move;
+
+import java.util.ArrayList;
+
 public class Moveimpl implements Move  {
     private int[]StartLocation;
     private int[]EndLocation;
     private double score;
+    private ArrayList<int[]> jumps;
     public Moveimpl(int[] StartLocation,int[] EndLocation){// format array[0]=x array[1]= y 
         score=0;
         for (int i=0; i<2;i++){
             this.StartLocation[i] =StartLocation[i];
             this.EndLocation[i]=EndLocation[i];
         }
+    }
+    public Moveimpl(int[] StartLocation,int[] EndLocation, ArrayList<int[]> jumps){// format array[0]=x array[1]= y
+        score=0;
+        for (int i=0; i<2;i++){
+            this.StartLocation[i] =StartLocation[i];
+            this.EndLocation[i]=EndLocation[i];
+        }
+        this.jumps = jumps;
     }
     public Moveimpl(int[] StartLocation,int[] EndLocation,double Score){
         this.score=Score;
@@ -36,6 +48,11 @@ public class Moveimpl implements Move  {
             temp[i]= this.EndLocation[i] ;
         }
         return temp;
+    }
+
+    @Override
+    public ArrayList<int[]> getJumpLocations() {
+        return this.jumps;
     }
 
     @Override

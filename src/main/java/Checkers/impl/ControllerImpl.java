@@ -4,6 +4,7 @@ import Checkers.Board_and_Controller.Piece;
 import Checkers.Controller;
 import Checkers.Move;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
@@ -16,7 +17,7 @@ public  ControllerImpl(Board bord){
 }
     @Override
     public List<Move> GetAllRedMoves() {
-    List<Move> out=new LinkedList<Move>();
+    List<Move> out=new ArrayList<>();
         for (Piece p :Board.getAllPieces()){
             if(p.isRed()) {
                 out.addAll(GetMovesOfPiece(p.getLocation()));
@@ -32,7 +33,9 @@ public  ControllerImpl(Board bord){
 
     @Override
     public List<Move> GetMovesOfPiece(int[] location) {
-        return null;
+        List<Move> moves = new ArrayList<>();
+        moves.addAll(getNormalMoves(location);
+        moves.addAll(getJumps(location));
     }
 
     @Override
@@ -64,4 +67,7 @@ public  ControllerImpl(Board bord){
         PastBordStates.push(Board.getBoardCopy());
         return true;
     }
+
+
+
 }
