@@ -44,8 +44,12 @@ public  ControllerImpl(Board bord){
     }
 
     private List<Move> getRedJumps(int[] location, ArrayList<Move> jumps) {
-        if()
-
+        if(inBounds(upLeft(location)) && !Board.getPiece(upLeft(location)).isRed() && inBounds(upLeft(upLeft(location))) && Board.getPiece(upLeft(upLeft(location))) == null){
+            getRedJumps(upLeft(upLeft(location)), jumps);
+        }
+        if(inBounds(upRight(location)) && !Board.getPiece(upRight(location)).isRed() && inBounds(upRight(upRight(location))) && Board.getPiece(upRight(upRight(location))) == null){
+            getRedJumps(upRight(upRight(location)), jumps);
+        }
         return jumps;
     }
 
