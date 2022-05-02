@@ -44,7 +44,7 @@ public  ControllerImpl(Board bord){
     }
 
     private List<Move> getRedJumps(int[] location, ArrayList<Move> jumps) {
-
+        if()
 
         return jumps;
     }
@@ -72,6 +72,13 @@ public  ControllerImpl(Board bord){
         array[0] = location[0] - 1;
         array[1] = location[1] - 1;
         return array;
+    }
+
+    private boolean inBounds(int[] location){
+        if(location[0] < 0 || location[0] > 7 || location[1] < 0 || location[1] > 7){
+            return false;
+        }
+        return true;
     }
 
     private List<Move> getNormalMoves(int[] location) {
