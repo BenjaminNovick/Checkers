@@ -4,10 +4,7 @@ import Checkers.Board_and_Controller.Piece;
 import Checkers.Controller;
 import Checkers.Move;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 public class ControllerImpl implements Controller {
 Stack<Piece[][]> PastBordStates= new Stack<Piece[][]>();
@@ -36,6 +33,9 @@ public  ControllerImpl(Board bord){
         List<Move> moves = new ArrayList<>();
         moves.addAll(getNormalMoves(location);
         moves.addAll(getJumps(location));
+    }
+
+    private List<Move> getNormalMoves(int[] location) {
     }
 
     @Override
