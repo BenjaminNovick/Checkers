@@ -78,6 +78,7 @@ public  ControllerImpl(Board bord){
         return array;
     }
 
+
     private boolean inBounds(int[] location){
         if(location[0] < 0 || location[0] > 7 || location[1] < 0 || location[1] > 7){
             return false;
@@ -86,9 +87,44 @@ public  ControllerImpl(Board bord){
     }
 
     private List<Move> getNormalMoves(int[] location) {
+    Piece piece= Board.getPiece(location);
+    List<Move> out = new ArrayList<Move>();
+    if(piece.isKing()){
+        out.addAll(getRedMove(piece));
+        out.addAll(getBlackMove(piece));
+        return out;
+    }
+    if(piece.isRed()){
+        out.addAll(getRedMove(piece));
+    }else {
+        out.addAll(getBlackMove(piece));
+    }
+return out;
+
     }
 
-    private List<Move> get
+    private List<Move> getRedMove(Piece p){
+    List<Move> list = new ArrayList<Move>();
+        if((inBounds(upLeft(p.getLocation())))&&((Board.getPiece(upLeft(p.getLocation())))==null)){
+            list.add(new Moveimpl(p.getLocation(),upLeft(p.getLocation())));
+        }
+        if((inBounds(upRight(p.getLocation())))&&((Board.getPiece(upRight(p.getLocation())))==null)){
+            list.add(new Moveimpl(p.getLocation(),upRight(p.getLocation())));
+        }
+        return  list;
+
+    }
+    private List<Move> getBlackMove(Piece p){
+        List<Move> list = new ArrayList<Move>();
+        if((inBounds(downLeft(p.getLocation())))&&((Board.getPiece(downLeft(p.getLocation())))==null)){
+            list.add(new Moveimpl(p.getLocation(),upLeft(p.getLocation())));
+        }
+        if((inBounds(downRight(p.getLocation())))&&((Board.getPiece(downRight(p.getLocation())))==null)){
+            list.add(new Moveimpl(p.getLocation(),upRight(p.getLocation())));
+        }
+        return  list;
+
+    }
 
     @Override
     public boolean DoBlackMove(Move m) {

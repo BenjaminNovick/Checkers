@@ -64,7 +64,7 @@ public class AIimpl implements AI {
 
 
         }
-        controller.undo();
+        controller.Undo();
         return hightsmove.getMoveScore();
     }
     private double getMoveBlackValue(Move m,int lev){
@@ -83,7 +83,7 @@ public class AIimpl implements AI {
                 hightsmove = mo;
             }
         }
-        controller.undo();
+        controller.Undo();
         return hightsmove.getMoveScore();
     }
 }
