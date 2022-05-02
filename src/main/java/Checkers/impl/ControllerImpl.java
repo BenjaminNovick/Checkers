@@ -32,11 +32,52 @@ public  ControllerImpl(Board bord){
     public List<Move> GetMovesOfPiece(int[] location) {
         List<Move> moves = new ArrayList<>();
         moves.addAll(getNormalMoves(location);
-        moves.addAll(getJumps(location));
+        if(Board.getPiece(location).isKing())){
+            moves.addAll(getKingJumps(location));
+        }
+        else if(Board.getPiece(location).isRed()){
+            moves.addAll(getRedJumps(location, new ArrayList<Move>()));
+        }
+        else {
+            moves.addAll(getBlackJumps(location));
+        }
+    }
+
+    private List<Move> getRedJumps(int[] location, ArrayList<Move> jumps) {
+
+
+        return jumps;
+    }
+
+    private int[] upRight(int[] location){
+       int[] array = new int[2];
+       array[0] = location[0] + 1;
+       array[1] = location[1] + 1;
+       return array;
+    }
+    private int[] upLeft(int[] location){
+        int[] array = new int[2];
+        array[0] = location[0] - 1;
+        array[1] = location[1] + 1;
+        return array;
+    }
+    private int[] downRight(int[] location){
+        int[] array = new int[2];
+        array[0] = location[0] + 1;
+        array[1] = location[1] - 1;
+        return array;
+    }
+    private int[] downLeft(int[] location){
+        int[] array = new int[2];
+        array[0] = location[0] - 1;
+        array[1] = location[1] - 1;
+        return array;
     }
 
     private List<Move> getNormalMoves(int[] location) {
     }
+
+    private List<Move> get
 
     @Override
     public boolean DoBlackMove(Move m) {
