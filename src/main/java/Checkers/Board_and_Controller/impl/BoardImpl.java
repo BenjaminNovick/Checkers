@@ -35,7 +35,24 @@ public class BoardImpl implements Board {
 
     @Override
     public double getBoardValue() {
-        return 0;
+        double red=0;
+        double black=0;
+        for (Piece piece: pieces){
+            if(piece.isRed()){
+                if (piece.isKing()){
+                    red= red+1.5;
+                }else {
+                    red++;
+                }
+            }else {
+                if (piece.isKing()){
+                    black= black+1.5;
+                }else {
+                    black++;
+                }
+            }
+        }
+        return (red-black)/(red+black);
     }
 
     @Override
