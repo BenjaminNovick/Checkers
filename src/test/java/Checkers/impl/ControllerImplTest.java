@@ -7,7 +7,7 @@ import Checkers.Move;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
-import src.main.java.Checkers.Controller;
+import Checkers.Controller;
 
 import java.util.List;
 

@@ -2,7 +2,7 @@ package Checkers.impl;
 import Checkers.Board_and_Controller.Board;
 import Checkers.Controller;
 import Checkers.Move;
-import src.main.java.Checkers.AI;
+import Checkers.AI;
 
 import java.util.List;
 
