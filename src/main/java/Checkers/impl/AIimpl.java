@@ -17,7 +17,7 @@ public class AIimpl implements AI {
     @Override
     public Move getBestRedMove() {
         List<Move> posiblemoves= controller.GetAllRedMoves();
-        Move hightsmove =new Moveimpl(new int[]{1, 1}, new int[]{1, 1},-3);
+        Move hightsmove =new Moveimpl(new int[]{1, 1}, new int[]{1, 1},-3.0);
         for(Move m :posiblemoves){
             m.setMoveScore(getMoveRedValue(m,level,hightsmove.getMoveScore()));
             if(m.getMoveScore() > hightsmove.getMoveScore()){

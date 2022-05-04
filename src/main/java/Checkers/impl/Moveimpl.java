@@ -11,30 +11,24 @@ public class Moveimpl implements Move  {
     private int[]EndLocation;
     private double score;
     private ArrayList<int[]> jumps;
-    public Moveimpl(int[] StartLocation,int[] EndLocation){// format array[0]=x array[1]= y 
+    public Moveimpl(int[] StartLocation,int[] EndLocation){// format array[0]=x array[1]= y
+        this.StartLocation = StartLocation;
+        this.EndLocation = EndLocation;
         score=0;
-        for (int i=0; i<2;i++){
-            this.StartLocation[i] =StartLocation[i];
-            this.EndLocation[i]=EndLocation[i];
-        }
         this.jumps = new ArrayList<>();
     }
     public Moveimpl(int[] StartLocation,int[] EndLocation, ArrayList<int[]> jumps){// format array[0]=x array[1]= y
         score=0;
-        for (int i=0; i<2;i++){
-            this.StartLocation[i] =StartLocation[i];
-            this.EndLocation[i]=EndLocation[i];
-        }
+        this.StartLocation = StartLocation;
+        this.EndLocation = EndLocation;
         for(int[] jump : jumps){
             this.jumps.add(jump);
         }
     }
     public Moveimpl(int[] StartLocation,int[] EndLocation,double Score){
         this.score=Score;
-        for (int i=0; i<2;i++){
-            this.StartLocation[i] =StartLocation[i];
-            this.EndLocation[i]=EndLocation[i];
-        }
+        this.StartLocation = StartLocation;
+        this.EndLocation = EndLocation;
     }
     @Override
     public int[] getStartingLocation() {

@@ -39,13 +39,16 @@ public  ControllerImpl(Board bord){
         List<Move> moves = new ArrayList<>();
         moves.addAll(getNormalMoves(location));
         if(Board.getPiece(location).isKing()){
-            moves.addAll(getKingJumps(location, new HashSet<Move>()));
+            try{moves.addAll(getKingJumps(location, new HashSet<Move>()));}
+            catch (NullPointerException e){}
         }
         else if(Board.getPiece(location).isRed()){
-            moves.addAll(getRedJumps(location, new HashSet<Move>()));
+            try{moves.addAll(getRedJumps(location, new HashSet<Move>()));}
+            catch (NullPointerException e){}
         }
         else {
-            moves.addAll(getBlackJumps(location, new HashSet<Move>()));
+            try{moves.addAll(getBlackJumps(location, new HashSet<Move>()));}
+            catch (NullPointerException e) {}
         }
         return moves;
     }
