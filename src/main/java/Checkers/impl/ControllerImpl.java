@@ -45,7 +45,17 @@ public  ControllerImpl(Board bord){
 
     private List<Move> getRedJumps(int[] location, ArrayList<Move> jumps) {
         if(inBounds(upLeft(location)) && !Board.getPiece(upLeft(location)).isRed() && inBounds(upLeft(upLeft(location))) && Board.getPiece(upLeft(upLeft(location))) == null){
-            getRedJumps(upLeft(upLeft(location)), jumps);
+            getRedJumps(upLeft(upLeft(location)), jumps);/* this seems odd your not puting in the recusic calls output to anthing
+                                                            as well no proctection from jumping the same piec over and over again (more
+                                                             of a problem if its king peice)
+
+                                                             i would instead of a list of have a list of locations already jumped
+                                                             so when it calls the new one it will already have the relevent data
+                                                             to make a new jump move as well to exclude jumping over spots you already jumped
+                                                             then your will creat an empty list of move in the methods
+                                                             and do jumps.addall(getRedJumps()location,jumped)
+                                                             and return jumps
+                                                             */
         }
         if(inBounds(upRight(location)) && !Board.getPiece(upRight(location)).isRed() && inBounds(upRight(upRight(location))) && Board.getPiece(upRight(upRight(location))) == null){
             getRedJumps(upRight(upRight(location)), jumps);
