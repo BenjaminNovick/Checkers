@@ -191,15 +191,18 @@ return out;
     Move mtodo=null;
     List<Move> realmoves;
     int numberofj=0;
-    if(inBounds(m.getStartingLocation())&&(!(Board.getPiece(m.getStartingLocation())==null))) {
-        if ((Board.getPiece(m.getStartingLocation()).isRed()) && (inBounds(m.getEndingLocation()))) {
-            realmoves = GetMovesOfPiece(m.getStartingLocation());
-            for (Move seemove : realmoves) {
-                if ((seemove.getEndingLocation()[0] == m.getEndingLocation()[0]) && (m.getEndingLocation()[1] == seemove.getEndingLocation()[1])) {
-                    return true;
-                }
-            }
+    if(inBounds(m.getStartingLocation())) {
+        if (!(Board.getPiece(m.getStartingLocation()) == null)) {
 
+            if ((Board.getPiece(m.getStartingLocation()).isRed()) && (inBounds(m.getEndingLocation()))) {
+                realmoves = GetMovesOfPiece(m.getStartingLocation());
+                for (Move seemove : realmoves) {
+                    if ((seemove.getEndingLocation()[0] == m.getEndingLocation()[0]) && (m.getEndingLocation()[1] == seemove.getEndingLocation()[1])) {
+                        return true;
+                    }
+                }
+
+            }
         }
     }
         return false;
@@ -210,15 +213,17 @@ return out;
         Move mtodo=null;
         List<Move> realmoves;
         int numberofj=0;
-        if(inBounds(m.getStartingLocation())&&(!(Board.getPiece(m.getStartingLocation())==null))) {
-            if ((!Board.getPiece(m.getStartingLocation()).isRed()) && (inBounds(m.getEndingLocation()))) {
-                realmoves = GetMovesOfPiece(m.getStartingLocation());
-                for (Move seemove : realmoves) {
-                    if ((seemove.getEndingLocation()[0] == m.getEndingLocation()[0]) && (m.getEndingLocation()[1] == seemove.getEndingLocation()[1])) {
-                        return true;
+        if(inBounds(m.getStartingLocation())) { // if in bounds;
+            if (!(Board.getPiece(m.getStartingLocation()) == null)) {// if there actuly is a pice there
+                if ((!Board.getPiece(m.getStartingLocation()).isRed()) && (inBounds(m.getEndingLocation()))) {
+                    realmoves = GetMovesOfPiece(m.getStartingLocation());
+                    for (Move seemove : realmoves) {
+                        if ((seemove.getEndingLocation()[0] == m.getEndingLocation()[0]) && (m.getEndingLocation()[1] == seemove.getEndingLocation()[1])) {
+                            return true;
+                        }
                     }
-                }
 
+                }
             }
         }
         return false;
