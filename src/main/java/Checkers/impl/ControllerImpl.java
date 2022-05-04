@@ -31,8 +31,8 @@ public  ControllerImpl(Board bord){
     @Override
     public List<Move> GetMovesOfPiece(int[] location) {
         List<Move> moves = new ArrayList<>();
-        moves.addAll(getNormalMoves(location);
-        if(Board.getPiece(location).isKing())){
+        moves.addAll(getNormalMoves(location));
+        if(Board.getPiece(location).isKing()){
             moves.addAll(getKingJumps(location));
         }
         else if(Board.getPiece(location).isRed()){
@@ -160,16 +160,67 @@ return out;
 
     @Override
     public boolean DoRedMove(Move m) {
+        Move mtodo=null;
+        if (CheckRedMove(m)) {
+            List<Move> realmoves = GetMovesOfPiece(m.getStartingLocation());
+            int numberofj = 0;
+            for (Move seemove : realmoves) {
+                if ((seemove.getEndingLocation()[0] == m.getEndingLocation()[0]) && (m.getEndingLocation()[1] == seemove.getEndingLocation()[1])) {
+                    if (seemove.getJumpLocations().size() >= numberofj) {// because the moves created from the ui do not contain thespots to jump it will find the move with the same and spot but the must jumps
+                        mtodo = seemove;
+                        numberofj = seemove.getJumpLocations().size();
+                    }
+                }
+            }
+            if (!(mtodo == null)) {
+                Piece piece = Board.getPiece(mtodo.getStartingLocation());
+                Board.deletePiece(piece);
+                Board.putPiece(piece, mtodo.getEndingLocation());
+                for (int[] js : m.getJumpLocations()) {
+                    Board.deletePiece(Board.getPiece(js));
+                }
+                return true;
+            }
+        }
         return false;
+
     }
 
     @Override
     public boolean CheckRedMove(Move m) {
+    Move mtodo=null;
+    List<Move> realmoves;
+    int numberofj=0;
+    if(inBounds(m.getStartingLocation())&&(!(Board.getPiece(m.getStartingLocation())==null))) {
+        if ((Board.getPiece(m.getStartingLocation()).isRed()) && (inBounds(m.getEndingLocation()))) {
+            realmoves = GetMovesOfPiece(m.getStartingLocation());
+            for (Move seemove : realmoves) {
+                if ((seemove.getEndingLocation()[0] == m.getEndingLocation()[0]) && (m.getEndingLocation()[1] == seemove.getEndingLocation()[1])) {
+                    return true;
+                }
+            }
+
+        }
+    }
         return false;
     }
 
     @Override
     public boolean CheckBlackMove(Move m) {
+        Move mtodo=null;
+        List<Move> realmoves;
+        int numberofj=0;
+        if(inBounds(m.getStartingLocation())&&(!(Board.getPiece(m.getStartingLocation())==null))) {
+            if ((!Board.getPiece(m.getStartingLocation()).isRed()) && (inBounds(m.getEndingLocation()))) {
+                realmoves = GetMovesOfPiece(m.getStartingLocation());
+                for (Move seemove : realmoves) {
+                    if ((seemove.getEndingLocation()[0] == m.getEndingLocation()[0]) && (m.getEndingLocation()[1] == seemove.getEndingLocation()[1])) {
+                        return true;
+                    }
+                }
+
+            }
+        }
         return false;
     }
 
