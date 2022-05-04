@@ -275,11 +275,12 @@ return out;
 
     @Override
     public boolean DoBlackMove(Move m) {
-        return false;
+        if(CheckBlackMove(m));
     }
 
     @Override
     public boolean DoRedMove(Move m) {
+
         Move mtodo=null;
         if (CheckRedMove(m)) {
             PastBordStates.push(Board.getBoardCopy());
@@ -309,6 +310,9 @@ return out;
 
     @Override
     public boolean CheckRedMove(Move m) {
+        if(m==null){
+            return false;
+        }
     Move mtodo=null;
     List<Move> realmoves;
     int numberofj=0;
@@ -331,6 +335,9 @@ return out;
 
     @Override
     public boolean CheckBlackMove(Move m) {
+        if(m==null){
+            return false;
+        }
         Move mtodo=null;
         List<Move> realmoves;
         int numberofj=0;
