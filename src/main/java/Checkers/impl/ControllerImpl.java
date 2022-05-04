@@ -25,7 +25,13 @@ public  ControllerImpl(Board bord){
 
     @Override
     public List<Move> GetAllBlackMoves() {
-        return null;
+        List<Move> out=new ArrayList<>();
+        for (Piece p :Board.getAllPieces()){
+            if(!(p.isRed())) {
+                out.addAll(GetMovesOfPiece(p.getLocation()));
+            }
+        }
+        return out;
     }
 
     @Override
@@ -275,7 +281,30 @@ return out;
 
     @Override
     public boolean DoBlackMove(Move m) {
-        if(CheckBlackMove(m));
+        Move mtodo=null;
+        if (CheckBlackMove(m)) {
+            PastBordStates.push(Board.getBoardCopy());
+            List<Move> realmoves = GetMovesOfPiece(m.getStartingLocation());
+            int numberofj = 0;
+            for (Move seemove : realmoves) {
+                if ((seemove.getEndingLocation()[0] == m.getEndingLocation()[0]) && (m.getEndingLocation()[1] == seemove.getEndingLocation()[1])) {
+                    if (seemove.getJumpLocations().size() >= numberofj) {// because the moves created from the ui do not contain thespots to jump it will find the move with the same and spot but the must jumps
+                        mtodo = seemove;
+                        numberofj = seemove.getJumpLocations().size();
+                    }
+                }
+            }
+            if (!(mtodo == null)) {
+                Piece piece = Board.getPiece(mtodo.getStartingLocation());
+                Board.deletePiece(piece);
+                Board.putPiece(piece, mtodo.getEndingLocation());
+                for (int[] js : m.getJumpLocations()) {
+                    Board.deletePiece(Board.getPiece(js));
+                }
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
