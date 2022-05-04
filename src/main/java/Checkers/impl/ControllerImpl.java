@@ -33,7 +33,7 @@ public  ControllerImpl(Board bord){
         List<Move> moves = new ArrayList<>();
         moves.addAll(getNormalMoves(location));
         if(Board.getPiece(location).isKing()){
-            moves.addAll(getKingJumps(location));
+            moves.addAll(getKingJumps(location, new HashSet<Move>()));
         }
         else if(Board.getPiece(location).isRed()){
             moves.addAll(getRedJumps(location, new HashSet<Move>()));
@@ -41,8 +41,60 @@ public  ControllerImpl(Board bord){
         else {
             moves.addAll(getBlackJumps(location, new HashSet<Move>()));
         }
+        return moves;
     }
 
+    private HashSet<Move> getKingJumps(int[] location, HashSet<Move> jumps){
+        Piece piece = Board.getPiece(location);
+        if(!canUpLeftJump(location, piece) && !canUpRightJump(location, piece) && !canDownLeftJump(location,piece) && !canDownRightJump(location, piece)){
+            return jumps;
+        }
+        if(canUpLeftJump(location, piece)){
+            Moveimpl jump = new Moveimpl(location, upLeft(upLeft(location)));
+            jump.addJump(upLeft(location));
+            jumps.add(jump);
+        }
+        if(canUpRightJump(location, piece)){
+            Moveimpl jump = new Moveimpl(location, upLeft(upRight(location)));
+            jump.addJump(upRight(location));
+            jumps.add(jump);
+        }
+        if(canDownLeftJump(location, piece)){
+            Moveimpl jump = new Moveimpl(location, downLeft(downLeft(location)));
+            jump.addJump(downLeft(location));
+            jumps.add(jump);
+        }
+        if(canDownRightJump(location, piece)){
+            Moveimpl jump = new Moveimpl(location, downLeft(downRight(location)));
+            jump.addJump(downRight(location));
+            jumps.add(jump);
+        }
+        Set<Move> moveSet = new HashSet<>();
+        moveSet.addAll(jumps);
+        int count = jumps.size();
+        while(count <= jumps.size()){
+            count = jumps.size() + 1;
+            for(Move move : moveSet){
+                if(canUpLeftJump(move.getEndingLocation(), piece) && !move.getJumpLocations().contains(upLeft(move.getEndingLocation()))){
+                    Moveimpl jump = new Moveimpl(location, upLeft(upLeft(move.getEndingLocation())), move.getJumpLocations());
+                    jump.addJump(upLeft(move.getEndingLocation()));
+                }
+                if(canUpRightJump(move.getEndingLocation(), piece) && !move.getJumpLocations().contains(upRight(move.getEndingLocation()))){
+                    Moveimpl jump = new Moveimpl(location, upRight(upRight(move.getEndingLocation())), move.getJumpLocations());
+                    jump.addJump(upRight(move.getEndingLocation()));
+                }
+                if(canDownLeftJump(move.getEndingLocation(), piece) && !move.getJumpLocations().contains(downLeft(move.getEndingLocation()))){
+                    Moveimpl jump = new Moveimpl(location, downLeft(downLeft(move.getEndingLocation())), move.getJumpLocations());
+                    jump.addJump(downLeft(move.getEndingLocation()));
+                }
+                if(canDownRightJump(move.getEndingLocation(), piece) && !move.getJumpLocations().contains(downRight(move.getEndingLocation()))){
+                    Moveimpl jump = new Moveimpl(location, downRight(downRight(move.getEndingLocation())), move.getJumpLocations());
+                    jump.addJump(downRight(move.getEndingLocation()));
+                }
+            }
+        }
+        return jumps;
+    }
 
     private HashSet<Move> getRedJumps(int[] location, HashSet<Move> jumps) {
         Piece piece = Board.getPiece(location);
