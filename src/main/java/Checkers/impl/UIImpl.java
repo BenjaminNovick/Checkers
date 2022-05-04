@@ -57,9 +57,9 @@ public class UIImpl implements UI {
             return askPlayerForMove();
         }
         int startX = input.charAt(0) - 65;
-        int startY = input.charAt(1) - 1;
+        int startY = Character.getNumericValue(input.charAt(1)) - 1;
         int endX = input.charAt(6) - 65;
-        int endY = input.charAt(7) - 1;
+        int endY = Character.getNumericValue(input.charAt(7)) - 1;
         Move move = new Moveimpl(new int[]{startX,startY},new int[]{endX,endY});
         return move;
     }
