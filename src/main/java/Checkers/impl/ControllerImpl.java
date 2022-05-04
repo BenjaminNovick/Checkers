@@ -342,7 +342,7 @@ return out;
         if(m==null){
             return false;
         }
-    Move mtodo=null;
+    Move mtodo = null;
     List<Move> realmoves;
     int numberofj=0;
     if(inBounds(m.getStartingLocation())) {

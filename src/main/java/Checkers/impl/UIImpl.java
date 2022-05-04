@@ -9,7 +9,6 @@ import java.util.Scanner;
 public class UIImpl implements UI {
     Scanner scanner = new Scanner(System.in);
 
-
     @Override
     public void printBord(Piece[][] boardArray) {
         for(int j = 0; j < 8; j++){
@@ -72,16 +71,41 @@ public class UIImpl implements UI {
 
     @Override
     public void insultPlayer() {
-        System.out.println("That's not right you fool");
+        String[] insultList = {"I will destroy you", "Prepare for DOOOOM", "Oof ouch owie you bones", "Soup", "Peanut M&Ms are clearly trail mix", };
     }
 
     @Override
     public int numberOfPlayers() {
-        return 0;
+        boolean fail = true;
+        while (fail){
+            System.out.println("Input number of players:");
+            String input = scanner.nextLine();
+            try{
+                int number = Integer.parseInt(input);
+                if(number >= 3){
+                    System.out.println("Too many players");
+                }
+                else if(number <= -1){
+                    System.out.println("Too few players");
+                }
+                else{
+                    return number;
+                }
+            }
+            catch (IllegalArgumentException e){
+                System.out.println("That is not a number");
+            }
+        }
+        return -1;
     }
 
     @Override
     public boolean doYouWantAnotherGame() {
+        System.out.println("Do you want to play again?");
+        String input = scanner.nextLine();
+        if(input.equals("Yes")){
+            return true;
+        }
         return false;
     }
 }

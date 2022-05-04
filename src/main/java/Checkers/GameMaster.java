@@ -9,12 +9,12 @@ import Checkers.UI;
 import Checkers.AI;
 import java.util.Random;
 public class GameMaster {
-    UI ui = new UIImpl();
-    Random random= new Random();
-    public void main(String[] args){
+    static UI ui = new UIImpl();
+    static Random random= new Random();
+    public static void  main (String[] args){
         runGame();
     }
-    private void runGame(){
+    private static void runGame(){
         int players;
         boolean letsplay=true;
        while (letsplay==true) {
@@ -35,7 +35,7 @@ public class GameMaster {
            }
        }
     }
-    private void RunTwoPlayers(){
+    private static void RunTwoPlayers(){
         Board board= new BoardImpl();
         Controller controller=new ControllerImpl(board);
         Move playesmove;
@@ -53,9 +53,6 @@ public class GameMaster {
 
 
             if (turn == Piece.Color.RED) {
-                if(random.nextBoolean()){
-                    ui.insultPlayer();
-                }
                 playesmove = ui.askPlayerForMove();
                 if (controller.CheckRedMove(playesmove)) {
                     controller.DoRedMove(playesmove);
@@ -64,9 +61,6 @@ public class GameMaster {
                     ui.TellPlayThatMoveIsIllegal();
                 }
             } else {
-                if(random.nextBoolean()){
-                    ui.insultPlayer();
-                }
                 playesmove = ui.askPlayerForMove();
                 if (controller.CheckBlackMove(playesmove)) {
                     controller.DoBlackMove(playesmove);
@@ -79,7 +73,7 @@ public class GameMaster {
 
 
     }
-    private void RunPlayerAndAI(){
+    private static void RunPlayerAndAI(){
         Board board= new BoardImpl();
         Controller controller=new ControllerImpl(board);
         Piece.Color turn = Piece.Color.RED;
@@ -116,7 +110,7 @@ public class GameMaster {
     }
 
 
-    private void  RunNoPlayer(){
+    private static void  RunNoPlayer(){
         int turn =0;
         Board board= new BoardImpl();
         Controller controller=new ControllerImpl(board);
