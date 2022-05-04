@@ -162,6 +162,7 @@ return out;
     public boolean DoRedMove(Move m) {
         Move mtodo=null;
         if (CheckRedMove(m)) {
+            PastBordStates.push(Board.getBoardCopy());
             List<Move> realmoves = GetMovesOfPiece(m.getStartingLocation());
             int numberofj = 0;
             for (Move seemove : realmoves) {
