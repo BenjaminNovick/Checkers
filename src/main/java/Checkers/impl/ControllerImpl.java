@@ -36,29 +36,87 @@ public  ControllerImpl(Board bord){
             moves.addAll(getKingJumps(location));
         }
         else if(Board.getPiece(location).isRed()){
-            moves.addAll(getRedJumps(location, new ArrayList<Move>()));
+            moves.addAll(getRedJumps(location, new HashSet<Move>()));
         }
         else {
-            moves.addAll(getBlackJumps(location));
+            moves.addAll(getBlackJumps(location, new HashSet<Move>()));
         }
     }
 
-    private List<Move> getRedJumps(int[] location, ArrayList<Move> jumps) {
-        if(inBounds(upLeft(location)) && !Board.getPiece(upLeft(location)).isRed() && inBounds(upLeft(upLeft(location))) && Board.getPiece(upLeft(upLeft(location))) == null){
-            getRedJumps(upLeft(upLeft(location)), jumps);/* this seems odd your not puting in the recusic calls output to anthing
-                                                            as well no proctection from jumping the same piec over and over again (more
-                                                             of a problem if its king peice)
 
-                                                             i would instead of a list of have a list of locations already jumped
-                                                             so when it calls the new one it will already have the relevent data
-                                                             to make a new jump move as well to exclude jumping over spots you already jumped
-                                                             then your will creat an empty list of move in the methods
-                                                             and do jumps.addall(getRedJumps()location,jumped)
-                                                             and return jumps
-                                                             */
+    private HashSet<Move> getRedJumps(int[] location, HashSet<Move> jumps) {
+        Piece piece = Board.getPiece(location);
+        if(!canUpLeftJump(location, piece) && !canUpRightJump(location, piece)){
+            return jumps;
         }
-        if(inBounds(upRight(location)) && !Board.getPiece(upRight(location)).isRed() && inBounds(upRight(upRight(location))) && Board.getPiece(upRight(upRight(location))) == null){
-            getRedJumps(upRight(upRight(location)), jumps);
+        if(canUpLeftJump(location, piece)){
+            Moveimpl jump = new Moveimpl(location, upLeft(upLeft(location)));
+            jump.addJump(upLeft(location));
+            jumps.add(jump);
+        }
+        if(canUpRightJump(location, piece)){
+            Moveimpl jump = new Moveimpl(location, upLeft(upRight(location)));
+            jump.addJump(upRight(location));
+            jumps.add(jump);
+        }
+        Set<Move> moveSet = new HashSet<>();
+        moveSet.addAll(jumps);
+        int count = jumps.size();
+        while(count <= jumps.size()){
+            count = jumps.size() + 1;
+            for(Move move : moveSet){
+                if(canUpLeftJump(move.getEndingLocation(), piece)){
+                    Moveimpl jump = new Moveimpl(location, upLeft(upLeft(move.getEndingLocation())), move.getJumpLocations());
+                    jump.addJump(upLeft(move.getEndingLocation()));
+                }
+                if(canUpRightJump(move.getEndingLocation(), piece)){
+                    Moveimpl jump = new Moveimpl(location, upRight(upRight(move.getEndingLocation())), move.getJumpLocations());
+                    jump.addJump(upRight(move.getEndingLocation()));
+                }
+            }
+            Set<Move> thirdSet = new HashSet<>();
+            thirdSet.addAll(jumps);
+            thirdSet.removeAll(moveSet);
+            moveSet.clear();
+            moveSet.addAll(thirdSet);
+        }
+        return jumps;
+    }
+    private HashSet<Move> getBlackJumps(int[] location, HashSet<Move> jumps) {
+        Piece piece = Board.getPiece(location);
+        if(!canDownLeftJump(location, piece) && !canDownRightJump(location, piece)){
+            return jumps;
+        }
+        if(canDownLeftJump(location, piece)){
+            Moveimpl jump = new Moveimpl(location, downLeft(downLeft(location)));
+            jump.addJump(downLeft(location));
+            jumps.add(jump);
+        }
+        if(canDownRightJump(location, piece)){
+            Moveimpl jump = new Moveimpl(location, downLeft(downRight(location)));
+            jump.addJump(downRight(location));
+            jumps.add(jump);
+        }
+        Set<Move> moveSet = new HashSet<>();
+        moveSet.addAll(jumps);
+        int count = jumps.size();
+        while(count <= jumps.size()){
+            count = jumps.size() + 1;
+            for(Move move : moveSet){
+                if(canDownLeftJump(move.getEndingLocation(), piece)){
+                    Moveimpl jump = new Moveimpl(location, downLeft(downLeft(move.getEndingLocation())), move.getJumpLocations());
+                    jump.addJump(downLeft(move.getEndingLocation()));
+                }
+                if(canDownRightJump(move.getEndingLocation(), piece)){
+                    Moveimpl jump = new Moveimpl(location, downRight(downRight(move.getEndingLocation())), move.getJumpLocations());
+                    jump.addJump(downRight(move.getEndingLocation()));
+                }
+            }
+            Set<Move> thirdSet = new HashSet<>();
+            thirdSet.addAll(jumps);
+            thirdSet.removeAll(moveSet);
+            moveSet.clear();
+            moveSet.addAll(thirdSet);
         }
         return jumps;
     }

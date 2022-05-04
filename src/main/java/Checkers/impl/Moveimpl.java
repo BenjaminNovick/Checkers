@@ -3,6 +3,8 @@ import Checkers.Board_and_Controller.Piece;
 import Checkers.Move;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Objects;
 
 public class Moveimpl implements Move  {
     private int[]StartLocation;
@@ -15,6 +17,7 @@ public class Moveimpl implements Move  {
             this.StartLocation[i] =StartLocation[i];
             this.EndLocation[i]=EndLocation[i];
         }
+        this.jumps = new ArrayList<>();
     }
     public Moveimpl(int[] StartLocation,int[] EndLocation, ArrayList<int[]> jumps){// format array[0]=x array[1]= y
         score=0;
@@ -22,7 +25,9 @@ public class Moveimpl implements Move  {
             this.StartLocation[i] =StartLocation[i];
             this.EndLocation[i]=EndLocation[i];
         }
-        this.jumps = jumps;
+        for(int[] jump : jumps){
+            this.jumps.add(jump);
+        }
     }
     public Moveimpl(int[] StartLocation,int[] EndLocation,double Score){
         this.score=Score;
@@ -66,6 +71,10 @@ public class Moveimpl implements Move  {
         return temp;
     }
 
+    public void addJump(int[] jump){
+        this.jumps.add(jump);
+    }
+
     @Override
     public int compareTo(Move o) {
         if (o.getMoveScore() > this.score) {
@@ -79,4 +88,13 @@ public class Moveimpl implements Move  {
 
         }
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Moveimpl moveimpl = (Moveimpl) o;
+        return Double.compare(moveimpl.score, score) == 0 && Arrays.equals(StartLocation, moveimpl.StartLocation) && Arrays.equals(EndLocation, moveimpl.EndLocation) && Objects.equals(jumps, moveimpl.jumps);
+    }
+
 }
