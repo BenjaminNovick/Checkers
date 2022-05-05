@@ -114,19 +114,26 @@ public class GameMaster {
         int turn =0;
         Board board= new BoardImpl();
         Controller controller=new ControllerImpl(board);
+        ui.printBord(board.getBoardCopy());
         AI ai= new AIimpl(board,controller);
-        while (turn<500){
-            ui.printBord(board.getBoardCopy());
+        while (turn<5000){
+            turn++;
+
+            System.out.println();
             controller.DoRedMove(ai.getBestRedMove());
-            controller.DoBlackMove(ai.getBestBlackMove());
-            if (board.getBoardValue()==-1){
-                ui.printWinner(Piece.Color.BLACK);
-                break;
-            }
-            if (board.getBoardValue()==-1){
+            if ((board.getBoardValue()==-1)||controller.GetAllBlackMoves().size()==0){
                 ui.printWinner(Piece.Color.RED);
                 break;
             }
+            ui.printBord(board.getBoardCopy());
+            System.out.println(board.getBoardValue());
+            controller.DoBlackMove(ai.getBestBlackMove());
+            ui.printBord(board.getBoardCopy());
+            if ((board.getBoardValue()==-1)||controller.GetAllRedMoves().size()==0){
+                ui.printWinner(Piece.Color.BLACK);
+                break;
+            }
+
         }
     }
 

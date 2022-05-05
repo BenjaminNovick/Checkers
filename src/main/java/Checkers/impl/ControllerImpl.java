@@ -273,10 +273,10 @@ return out;
     private List<Move> getBlackMove(Piece p){
         List<Move> list = new ArrayList<Move>();
         if((inBounds(downLeft(p.getLocation())))&&((Board.getPiece(downLeft(p.getLocation())))==null)){
-            list.add(new Moveimpl(p.getLocation(),upLeft(p.getLocation())));
+            list.add(new Moveimpl(p.getLocation(),downLeft(p.getLocation())));
         }
         if((inBounds(downRight(p.getLocation())))&&((Board.getPiece(downRight(p.getLocation())))==null)){
-            list.add(new Moveimpl(p.getLocation(),upRight(p.getLocation())));
+            list.add(new Moveimpl(p.getLocation(),downRight(p.getLocation())));
         }
         return  list;
 
@@ -286,7 +286,7 @@ return out;
     public boolean DoBlackMove(Move m) {
         Move mtodo=null;
         if (CheckBlackMove(m)) {
-            PastBordStates.push(Board.getBoardCopy());
+            this.putBoardInStack();
             List<Move> realmoves = GetMovesOfPiece(m.getStartingLocation());
             int numberofj = 0;
             for (Move seemove : realmoves) {
@@ -315,7 +315,7 @@ return out;
 
         Move mtodo=null;
         if (CheckRedMove(m)) {
-            PastBordStates.push(Board.getBoardCopy());
+            this.putBoardInStack();
             List<Move> realmoves = GetMovesOfPiece(m.getStartingLocation());
             int numberofj = 0;
             for (Move seemove : realmoves) {
@@ -375,7 +375,7 @@ return out;
         int numberofj=0;
         if(inBounds(m.getStartingLocation())) { // if in bounds;
             if (!(Board.getPiece(m.getStartingLocation()) == null)) {// if there actuly is a pice there
-                if ((!Board.getPiece(m.getStartingLocation()).isRed()) && (inBounds(m.getEndingLocation()))) {
+                if (!(Board.getPiece(m.getStartingLocation()).isRed()) && (inBounds(m.getEndingLocation()))) {
                     realmoves = GetMovesOfPiece(m.getStartingLocation());
                     for (Move seemove : realmoves) {
                         if ((seemove.getEndingLocation()[0] == m.getEndingLocation()[0]) && (m.getEndingLocation()[1] == seemove.getEndingLocation()[1])) {

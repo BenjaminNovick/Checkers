@@ -90,12 +90,23 @@ public class BoardImpl implements Board {
 
     @Override
     public Piece[][] getBoardCopy() {
-        return this.board.clone();
+        Piece[][] setup= new Piece[8][8];
+        for (int i=0;i<board.length;i++){
+            for (int t=0;t<board.length;t++){
+                setup[i][t] =board[i][t];
+            }
+        }
+        return setup;
     }
 
     @Override
     public void setBoard(Piece[][] setup) {
-        this.board = setup;
+        for (int i=0;i<board.length;i++){
+            for (int t=0;t<board.length;t++){
+                board[i][t]=setup[i][t];
+            }
+        }
+
         maintenance();
     }
 

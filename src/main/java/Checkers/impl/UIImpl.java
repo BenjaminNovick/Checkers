@@ -13,11 +13,11 @@ public class UIImpl implements UI {
     public void printBord(Piece[][] boardArray) {
         for(int j = 0; j < 8; j++){
             for(int i = 0; i < 8; i++){
-                if(boardArray[i][j] == null){
+                if(boardArray[i][7-j] == null){
                     System.out.print("[]");
                 }
-                else if(boardArray[i][j].isRed()){
-                    if(boardArray[i][j].isKing()){
+                else if(boardArray[i][7-j].isRed()){
+                    if(boardArray[i][7-j].isKing()){
                         System.out.print("[R]");
                     }
                     else {
@@ -25,7 +25,7 @@ public class UIImpl implements UI {
                     }
                 }
                 else{
-                    if(boardArray[i][j].isKing()){
+                    if(boardArray[i][7-j].isKing()){
                         System.out.print("[B]");
                     }
                     else {
