@@ -177,7 +177,8 @@ public  ControllerImpl(Board bord){
 
 
     private List<Move> uprightjump(int[]location,Move pastmove, boolean kingstart){
-    List<int[]> pastlocs = pastmove.getJumpLocations();
+        List<int[]> pastlocs = new ArrayList<>();
+        pastlocs.addAll( pastmove.getJumpLocations());
     boolean canj=false;
     Piece[][] pastbord;
     List<Move> moves= new ArrayList<Move>();
@@ -208,7 +209,8 @@ public  ControllerImpl(Board bord){
         return moves;
     }
     private List<Move> downleftjump(int[]location,Move pastmove,boolean kingstart){
-        List<int[]> pastlocs = pastmove.getJumpLocations();
+        List<int[]> pastlocs = new ArrayList<>();
+               pastlocs.addAll( pastmove.getJumpLocations());
         boolean canj=false;
         Piece[][] pastbord;
         List<Move> moves= new ArrayList<Move>();
@@ -237,7 +239,8 @@ public  ControllerImpl(Board bord){
 
 
     private List<Move> downRighjump(int[]location,Move pastmove,boolean kingstart){
-        List<int[]> pastlocs = pastmove.getJumpLocations();
+        List<int[]> pastlocs = new ArrayList<>();
+        pastlocs.addAll( pastmove.getJumpLocations());
         boolean canj=false;
         Piece[][] pastbord;
         List<Move> moves= new ArrayList<Move>();
@@ -265,7 +268,8 @@ public  ControllerImpl(Board bord){
     }
 
     private List<Move> upleftjump(int[]location,Move pastmove,boolean kingstart){
-        List<int[]> pastlocs = pastmove.getJumpLocations();
+        List<int[]> pastlocs = new ArrayList<>();
+        pastlocs.addAll( pastmove.getJumpLocations());
         boolean canj=false;
         Piece[][] pastbord;
         List<Move> moves= new ArrayList<Move>();
