@@ -11,25 +11,27 @@ public class UIImpl implements UI {
 
     @Override
     public void printBord(Piece[][] boardArray) {
+        System.out.println("\tA\tB\tC\tD\tE\tF\tG\tH");
         for(int j = 0; j < 8; j++){
+            System.out.print(8-j + "\t");
             for(int i = 0; i < 8; i++){
                 if(boardArray[i][7-j] == null){
                     System.out.print("[]");
                 }
                 else if(boardArray[i][7-j].isRed()){
                     if(boardArray[i][7-j].isKing()){
-                        System.out.print("[R]");
+                        System.out.print("Ⓡ");
                     }
                     else {
-                        System.out.print("[r]");
+                        System.out.print("ⓡ");
                     }
                 }
                 else{
                     if(boardArray[i][7-j].isKing()){
-                        System.out.print("[B]");
+                        System.out.print("Ⓑ");
                     }
                     else {
-                        System.out.print("[b]");
+                        System.out.print("ⓑ");
                     }
                 }
                 System.out.print("\t");
