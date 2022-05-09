@@ -10,7 +10,7 @@ public class Moveimpl implements Move  {
     private int[]StartLocation;
     private int[]EndLocation;
     private double score;
-    private ArrayList<int[]> jumps;
+    private ArrayList<int[]> jumps= new ArrayList<int[]>();
     public Moveimpl(int[] StartLocation,int[] EndLocation){// format array[0]=x array[1]= y
         this.StartLocation = StartLocation;
         this.EndLocation = EndLocation;

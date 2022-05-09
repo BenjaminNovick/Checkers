@@ -64,7 +64,7 @@ public class GameMaster {
                 playesmove = ui.askPlayerForMove();
                 if (controller.CheckBlackMove(playesmove)) {
                     controller.DoBlackMove(playesmove);
-                    turn = Piece.Color.BLACK;
+                    turn = Piece.Color.RED;
                 } else {
                     ui.TellPlayThatMoveIsIllegal();
                 }
