@@ -86,6 +86,7 @@ public class GameMaster {
                 return;
             }
             if (board.getBoardValue()==-1){
+
                 ui.printWinner(Piece.Color.BLACK);
                 return;
             }
