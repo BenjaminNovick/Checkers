@@ -35,6 +35,7 @@ public class BoardImpl implements Board {
 
     @Override
     public double getBoardValue() {
+
         double red=0;
         double black=0;
         for (Piece piece: pieces){

@@ -17,6 +17,7 @@ public  ControllerImpl(Board bord){
 
 
 
+
     @Override
     public List<Move> GetAllRedMoves() {
     List<Move> out=new ArrayList<>();

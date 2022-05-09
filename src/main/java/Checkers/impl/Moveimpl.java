@@ -47,6 +47,7 @@ public class Moveimpl implements Move  {
             temp[i]= this.EndLocation[i] ;
         }
         return temp;
+
     }
 
     @Override

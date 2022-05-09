@@ -74,6 +74,7 @@ public class GameMaster {
 
     }
     private static void RunPlayerAndAI(){
+
         Board board= new BoardImpl();
         Controller controller=new ControllerImpl(board);
         Piece.Color turn = Piece.Color.RED;

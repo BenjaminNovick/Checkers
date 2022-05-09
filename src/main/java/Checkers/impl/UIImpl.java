@@ -52,6 +52,7 @@ public class UIImpl implements UI {
 
     @Override
     public Move askPlayerForMove() {
+
         System.out.println("Please input the next move");
         String input = scanner.nextLine();
         if(input.length() != 8){
